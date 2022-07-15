@@ -1,0 +1,66 @@
+#Create Loop to Ask User for Number of Contacts
+while True:
+    try:
+        num = int(input("How many contacts would you like to add? "))
+        if num > 0:
+            break
+        else:
+            print("Invalid, please try again.")
+    except:
+        print("Invalid, please try again.")
+
+#Create the Lists
+name = []
+email = []
+
+#Create For Loop for the User Input
+for g in range(0, num):
+    #Create Questions
+    name_q = "Please enter the name of contact " + str(g+1) + ": "
+    email_q = "Please enter the email of contact " + str(g+1) + ": "
+    #Ask for Contact
+    loop = 0
+    while loop == 0:
+        n = input(name_q)
+        if " " in n:
+            new_n = n.replace(" ", "")
+            if new_n.isalpha():
+                loop = 1
+            else:
+               print("Invalid, first and last name can only include letters.") 
+        else:
+            print("Invalid, must have first and last name with a space in betwee.")
+    name.append(n)
+    
+    #Ask for Email
+    while loop == 1:
+        e = input(email_q)
+        if e[0].isalpha():
+            if "@" in e:
+                sign = e.index('@')
+                if e[0:sign].isalnum():
+                    if ".com" in e:
+                        com = e.index(".com")
+                        if len(e[sign:com]) > 0:
+                            if e[sign+1:com].isalpha():
+                                if len(e[com:len(e)]) == 4:
+                                    loop = 0
+                                else:
+                                    print("Invalid, email must end with .com.")
+                            else:
+                                print("Invalid, domain can only letters.")
+                        else:
+                            print("Invalid, must have a domain.")
+                    else:
+                        print("Invalid, must end with .com.")
+                else:
+                    print("Invalid, username may only include letters and numbers.")
+            else:
+                print("Invalid, email must have an @ sign.")
+        else:
+            print("Invalid, username must start with a letter.")
+    email.append(e)
+
+#Print Out Results
+for i in range(0, num):
+    print("Name: ", name[i], ", Email: ", email[i], sep='')
